@@ -1,0 +1,17 @@
+{
+	"name": "Ext_resources",
+	"properties": {
+		"content": {
+			"query": "CREATE MASTER KEY ENCRYPTION BY PASSWORD= 'Shruti@10-1988' \n\n------------------------------------\n--DATABASE SCOPED CREDENIAL\n------------------------------------ \nCREATE DATABASE SCOPED CREDENTIAL shru_creds\nWITH IDENTITY = 'Managed Identity'\n\n-----------------------------------\n-- EXTERNAL DATA SCOURCE--\n-----------------------------------\n \nCREATE EXTERNAL DATA SOURCE silver_source\nWITH\n(\n    LOCATION = 'https://azuredwlake.dfs.core.windows.net/silver/',\n    CREDENTIAL = shru_creds\n)\n\nCREATE EXTERNAL DATA SOURCE gold_source\nWITH\n(\n    LOCATION = 'https://azuredwlake.dfs.core.windows.net/gold/',\n    CREDENTIAL = shru_creds\n)\n\n-------------------------------------\n-- EXTERNAL File FORMAT\n-------------------------------------\nCREATE EXTERNAL FILE FORMAT parquet_format\nWITH\n(\n    FORMAT_TYPE = PARQUET,\n    DATA_COMPRESSION = 'org.apache.hadoop.io.compress.SnappyCodec'\n)\n\nCREATE EXTERNAL FILE FORMAT delta\nWITH\n(\n    FORMAT_TYPE = DELTA\n)\n\n\n\n\n\n\n\n\n\n\n",
+			"metadata": {
+				"language": "sql"
+			},
+			"currentConnection": {
+				"databaseName": "SalesDWH",
+				"poolName": "Built-in"
+			},
+			"resultLimit": 5000
+		},
+		"type": "SqlQuery"
+	}
+}
